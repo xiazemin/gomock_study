@@ -49,17 +49,19 @@ defer stubs.Reset()
 GoConvey + GoStub + GoMock组合使用
 ```
  Convey("create obj", func() {
-            ctrl := NewController(t)
-            defer ctrl.Finish()
-            mockRepo := mock_db.NewMockRepository(ctrl)
-            mockRepo.EXPECT().Retrieve(Any()).Return(nil, ErrAny)
-            mockRepo.EXPECT().Create(Any(), Any()).Return(nil)
-            mockRepo.EXPECT().Retrieve(Any()).Return(objBytes, nil)
-            stubs := StubFunc(&redisrepo.GetInstance, mockRepo)
-            defer stubs.Reset()
-            ...
-        })
+    ctrl := NewController(t)
+    defer ctrl.Finish()
+    mockRepo := mock_db.NewMockRepository(ctrl)
+    mockRepo.EXPECT().Retrieve(Any()).Return(nil, ErrAny)
+    mockRepo.EXPECT().Create(Any(), Any()).Return(nil)
+    mockRepo.EXPECT().Retrieve(Any()).Return(objBytes, nil)
+    stubs := StubFunc(&redisrepo.GetInstance, mockRepo)
+    defer stubs.Reset()
+    ...
+})
 ```
+
+
 
 全局变量可通过GoStub框架打桩
 过程可通过GoStub框架打桩
